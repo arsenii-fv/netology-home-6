@@ -28,6 +28,11 @@
     SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
     список пользователей с правами над таблицами test_db
 ````
+````
+select column_name, data_type, character_maximum_length, column_default, is_nullable
+from INFORMATION_SCHEMA.COLUMNS where table_name = 'clients';
+````
+
 ### Задача 3
 ````
 Используя SQL синтаксис - наполните таблицы следующими тестовыми данными:
