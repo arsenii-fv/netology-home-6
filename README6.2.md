@@ -60,7 +60,7 @@ services:
     SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
     список пользователей с правами над таблицами test_db
 ````
-```` yml
+```` sql
 CREATE DATABASE test_db;
 CREATE ROLE test_admin_user WITH LOGIN PASSWORD 'testadm';
 \c test_db;
