@@ -4,6 +4,39 @@
 Используя docker поднимите инстанс PostgreSQL (версию 12) c 2 volume, в который будут складываться данные БД и бэкапы.
 Приведите получившуюся команду или docker-compose манифест.
 ````
+````
+-- yml
+version: '3.3'
+volumes:
+  pgdata: {}
+  pgback: {}
+  pgadmin:
+services:
+  postgres:
+    image: postgres:12
+    restart: always
+    environment:
+            POSTGRES_USER: superadmin
+            POSTGRES_PASSWORD: sadm
+            POSTGRES_DB: sup_db
+            PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+          - "./pgdata:/var/lib/postgresql/data/pgdata"
+          - "./pgdata:/docker-entrypoint-initdb.d"
+    ports:
+          - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4:5.5
+    environment:
+           PGADMIN_DEFAULT_EMAIL: ars@ars.com
+           PGADMIN_DEFAULT_PASSWORD: pgadmin
+           PGADMIN_LISTEN_PORT: 8080
+    volumes:
+         - "./pgadmin:/root/.pgadmin"
+    ports:
+            - "8080:8080"
+    restart: always
+````
 
 ### Задача 2
 ````
