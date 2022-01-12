@@ -61,6 +61,24 @@ services:
     список пользователей с правами над таблицами test_db
 ````
 ```` yml
+CREATE DATABASE test_db;
+CREATE ROLE test_admin_user WITH LOGIN PASSWORD 'testadm';
+\c test_db;
+GRANT ALL PRIVILEGES ON DATABASE test_db TO test_admin_user;
+CREATE TABLE orders (
+        id              serial PRIMARY KEY,
+        Наименование    varchar(40),
+        Цена            integer );
+CREATE TABLE clients (
+        id serial PRIMARY KEY,
+        Фамилия varchar(40),
+        Страна_проживания varchar(40),
+        Заказ integer,
+        FOREIGN KEY (Заказ) REFERENCES orders(id));
+
+CREATE USER test_simple_user WITH  PASSWORD 'testsimple';
+GRANT SELECT, INSERT, UPDATE ON orders, clients TO test_simple_user;
+
 postgres, sup_db, test_db
 
 select column_name, data_type, character_maximum_length, column_default, is_nullable
