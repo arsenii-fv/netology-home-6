@@ -142,6 +142,8 @@ INSERT INTO clients VALUES
  (3, 'Иоганн Себастьян Бах', 'Japan', '5'),
  (4, 'Ронни Джеймс Дио', 'Russia', null),
  (5, 'Ritchie Blackmore', 'Russia', null);
+ 
+ select * from clients WHERE Заказ is not null ;
 
 ````
 ### Задача 5
