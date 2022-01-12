@@ -110,6 +110,12 @@ Ritchie Blackmore 	Russia
         запросы
         результаты их выполнения.
 ````
+````
+select count(*) from clients;
+5
+select count(*) from orders;
+5
+````
 ### Задача 4
 ````
 Часть пользователей из таблицы clients решили оформить заказы из таблицы orders.
