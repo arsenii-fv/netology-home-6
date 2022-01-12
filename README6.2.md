@@ -61,6 +61,7 @@ services:
     список пользователей с правами над таблицами test_db
 ````
 ```` sql
+file test_db.sql
 CREATE DATABASE test_db;
 CREATE ROLE test_admin_user WITH LOGIN PASSWORD 'testadm';
 \c test_db;
@@ -75,7 +76,6 @@ CREATE TABLE clients (
         Страна_проживания varchar(40),
         Заказ integer,
         FOREIGN KEY (Заказ) REFERENCES orders(id));
-
 CREATE USER test_simple_user WITH  PASSWORD 'testsimple';
 GRANT SELECT, INSERT, UPDATE ON orders, clients TO test_simple_user;
 
