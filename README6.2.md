@@ -67,11 +67,11 @@ CREATE ROLE test_admin_user WITH LOGIN PASSWORD 'testadm';
 \c test_db;
 GRANT ALL PRIVILEGES ON DATABASE test_db TO test_admin_user;
 CREATE TABLE orders (
-        id              serial PRIMARY KEY,
+        id              integer PRIMARY KEY,
         Наименование    varchar(40),
         Цена            integer );
 CREATE TABLE clients (
-        id serial PRIMARY KEY,
+        id integer PRIMARY KEY,
         Фамилия varchar(40),
         Страна_проживания varchar(40),
         Заказ integer,
@@ -127,6 +127,22 @@ select count(*) from orders;
 Приведите SQL-запросы для выполнения данных операций.
 Приведите SQL-запрос для выдачи всех пользователей, которые совершили заказ, а также вывод данного запроса.
 Подсказк - используйте директиву UPDATE.
+````
+````sql
+INSERT INTO orders VALUES
+ (1, 'Шоколад', '10' ),
+ (2, 'Принтер', '3000'),
+ (3, 'Книга','500'),
+ (4, 'Монитор','7000'),
+ (5, 'Гитара','4000');
+
+INSERT INTO clients VALUES
+ (1, 'Иванов Иван Иванович', 'USA', 3),
+ (2, 'Петров Петр Петрович', 'Canada', '4'),
+ (3, 'Иоганн Себастьян Бах', 'Japan', '5'),
+ (4, 'Ронни Джеймс Дио', 'Russia', null),
+ (5, 'Ritchie Blackmore', 'Russia', null);
+
 ````
 ### Задача 5
 ````
