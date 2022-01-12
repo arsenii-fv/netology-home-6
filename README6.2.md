@@ -21,7 +21,7 @@ services:
             PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
           - "./pgdata:/var/lib/postgresql/data/pgdata"
-          - "./pgdata:/docker-entrypoint-initdb.d"
+          - "./test_db.sql:/docker-entrypoint-initdb.d/test_db.sql"
     ports:
           - "5432:5432"
   pgadmin:
@@ -60,9 +60,13 @@ services:
     SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
     список пользователей с правами над таблицами test_db
 ````
-````
+```` yml
+postgres, sup_db, test_db
+
 select column_name, data_type, character_maximum_length, column_default, is_nullable
 from INFORMATION_SCHEMA.COLUMNS where table_name = 'clients';
+
+SELECT * FROM information_schema.table_privileges WHERE grantee='test_simple_user'  LIMIT 10;
 ````
 
 ### Задача 3
