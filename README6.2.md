@@ -155,13 +155,22 @@ INSERT INTO clients VALUES
 Приведите получившийся результат и объясните что значат полученные значения.
 ````
 ````
-explain select * from clients, orders where clients.Заказ=orders.id;
+explain analyze  select * from clients, orders where clients.Заказ=orders.id;
 
-Hash Join  (cost=23.50..37.93 rows=350 width=310)
-  ->  Seq Scan on clients  (cost=0.00..13.50 rows=350 width=204)
-  ->  Hash  (cost=16.00..16.00 rows=600 width=106)
-  ->  Seq Scan on orders  (cost=0.00..16.00 rows=600 width=106)
- 
+Hash Join  (cost=23.50..37.93 rows=350 width=310) (actual time=19.725..19.728 rows=3 loops=1)
+ Hash Cond: (clients."Заказ" = orders.id)
+  ->  Seq Scan on clients  (cost=0.00..13.50 rows=350 width=204) (actual time=0.529..0.530 rows=5 loops=1)
+  ->  Hash  (cost=16.00..16.00 rows=600 width=106) (actual time=19.186..19.187 rows=5 loops=1)
+ Buckets: 1024  Batches: 1  Memory Usage: 9kB 
+  ->  Seq Scan on orders  (cost=0.00..16.00 rows=600 width=106) (actual time=19.177..19.179 rows=5 loops=1)
+ Planning Time: 0.084 ms       
+ Execution Time: 19.746 ms
+Hash Join - построение хэш таблицы
+coast - затраты на каждый узел плана , начальные и конечные.
+Seq Scan - последовательное, блок за блоком, чтение данных таблицы
+loops - сколько раз пришлось выполнить операцию Seq Scan
+rows - количество строк
+width - размер строки в байтах
 ````
 ### Задача 6
 ````
