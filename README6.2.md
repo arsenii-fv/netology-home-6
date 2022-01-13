@@ -143,7 +143,7 @@ INSERT INTO clients VALUES
  (4, 'Ронни Джеймс Дио', 'Russia', null),
  (5, 'Ritchie Blackmore', 'Russia', null);
  
- sudo  docker exec -i e1b1f4cb6fdd_dockercom_postgres_1 psql -Usuperadmin test_db < data.sql
+ sudo  docker exec -i dockercom_postgres_1 psql -Usuperadmin test_db < data.sql
  
  select * from clients, orders where clients.Заказ=orders.id;
  select * from clients WHERE Заказ is not null ;
@@ -179,4 +179,9 @@ width - размер строки в байтах
 Поднимите новый пустой контейнер с PostgreSQL.
 Восстановите БД test_db в новом контейнере.
 Приведите список операций, который вы применяли для бэкапа данных и восстановления.
+````
+````
+sudo  docker exec -i dockercom_postgres_1 pg_dump -Usuperadmin -d test_db | gzip > pgback/test_db_bak.gz
+cat your_dump.sql | docker exec -i your-db-container psql -U postgres
+
 ````
