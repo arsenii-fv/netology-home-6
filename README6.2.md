@@ -154,7 +154,7 @@ INSERT INTO clients VALUES
 Получите полную информацию по выполнению запроса выдачи всех пользователей из задачи 4 (используя директиву EXPLAIN).
 Приведите получившийся результат и объясните что значат полученные значения.
 ````
-````
+````sql
 explain analyze  select * from clients, orders where clients.Заказ=orders.id;
 
 Hash Join  (cost=23.50..37.93 rows=350 width=310) (actual time=19.725..19.728 rows=3 loops=1)
@@ -180,8 +180,41 @@ width - размер строки в байтах
 Восстановите БД test_db в новом контейнере.
 Приведите список операций, который вы применяли для бэкапа данных и восстановления.
 ````
-````
-sudo  docker exec -i dockercom_postgres_1 pg_dump -Usuperadmin -d test_db | gzip > pgback/test_db_bak.gz
-cat your_dump.sql | docker exec -i your-db-container psql -U postgres
+````yml
+sudo  docker exec -i dockercom_postgres_1 pg_dump -U superadmin -d test_db > pgback/test_db_bak.sql
+sudo  docker-compose stop
+sudo  docker-compose -f docker-com-1.yml up -d
+sudo  docker exec -i docker_postgres2 psql -U superadmin sup_db < pgback/test_db_bak.sql
+
+version: '3.3' #docker-com-1.yml
+volumes:
+  pgdata2: {}
+  pgback: {}
+  pgadmin2:
+services:
+  postgres:
+    container_name: docker_postgres2
+    image: postgres:14
+    restart: always
+    environment:
+            POSTGRES_USER: superadmin
+            POSTGRES_PASSWORD: sadm
+            POSTGRES_DB: sup_db
+            PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+          - "./pgdata2:/var/lib/postgresql/data/pgdata"
+    ports:
+          - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4:5.5
+    environment:
+           PGADMIN_DEFAULT_EMAIL: ars@ars.com
+           PGADMIN_DEFAULT_PASSWORD: pgadmin
+           PGADMIN_LISTEN_PORT: 8080
+    volumes:
+         - "./pgadmin2:/root/.pgadmin"
+    ports:
+            - "8080:8080"
+    restart: always
 
 ````
