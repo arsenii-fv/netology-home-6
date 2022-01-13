@@ -155,14 +155,13 @@ INSERT INTO clients VALUES
 Приведите получившийся результат и объясните что значат полученные значения.
 ````
 ````
+explain select * from clients, orders where clients.Заказ=orders.id;
 
-![image](https://user-images.githubusercontent.com/69233861/149295489-246c6a0b-92ab-40bd-9ecd-8afdabe6ad1c.png)
-
-
---select * from clients;
---update clients;
---select * from clients WHERE Заказ is not null ;
-explain select * from clients;
+Hash Join  (cost=23.50..37.93 rows=350 width=310)
+  ->  Seq Scan on clients  (cost=0.00..13.50 rows=350 width=204)
+  ->  Hash  (cost=16.00..16.00 rows=600 width=106)
+  ->  Seq Scan on orders  (cost=0.00..16.00 rows=600 width=106)
+ 
 ````
 ### Задача 6
 ````
