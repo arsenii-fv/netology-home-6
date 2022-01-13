@@ -145,6 +145,7 @@ INSERT INTO clients VALUES
  
  sudo  docker exec -i e1b1f4cb6fdd_dockercom_postgres_1 psql -Usuperadmin test_db < data.sql
  
+ select * from clients, orders where clients.Заказ=orders.id;
  select * from clients WHERE Заказ is not null ;
 
 ````
@@ -154,6 +155,10 @@ INSERT INTO clients VALUES
 Приведите получившийся результат и объясните что значат полученные значения.
 ````
 ````
+
+![image](https://user-images.githubusercontent.com/69233861/149295489-246c6a0b-92ab-40bd-9ecd-8afdabe6ad1c.png)
+
+
 --select * from clients;
 --update clients;
 --select * from clients WHERE Заказ is not null ;
