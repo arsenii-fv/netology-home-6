@@ -143,6 +143,8 @@ INSERT INTO clients VALUES
  (4, 'Ронни Джеймс Дио', 'Russia', null),
  (5, 'Ritchie Blackmore', 'Russia', null);
  
+ sudo  docker exec -i e1b1f4cb6fdd_dockercom_postgres_1 psql -Usuperadmin test_db < data.sql
+ 
  select * from clients WHERE Заказ is not null ;
 
 ````
