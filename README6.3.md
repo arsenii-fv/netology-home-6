@@ -9,14 +9,43 @@
 Найдите команду для выдачи статуса БД и приведите в ответе из ее вывода версию сервера БД.
 Подключитесь к восстановленной БД и получите список таблиц из этой БД.
 Приведите в ответе количество записей с price > 300.
-В следующих заданиях мы будем продолжать работу с данным контей
 ```` 
 ````bash
 vagrant@netology1:~/docmysql$ sudo docker exec -it doc_mysql_db bash
 
 root@840ca3f3429c:/mnt/msqlback# mysqldump -uroot -pmadm  msql_db > /mnt/msqlback/msql_db_bak.sql
 root@840ca3f3429c:/# mysqldump -u root -p  msql_db >/mnt/msqlback/msql_db_bak.sql
+
 Enter password:
+root@840ca3f3429c:/# mysqladmin -u root -p create  msql1
+root@840ca3f3429c:/# mysql -u root -p  msql1 < /mnt/msqlback/msql_db_bak.sql
+
+vagrant@netology1:~/docmysql$ sudo docker exec -it doc_mysql_db bash
+root@840ca3f3429c:/# mysql -u root -
+mysql   -> \s
+--------------
+mysql  Ver 8.0.27 for Linux on x86_64 (MySQL Community Server - GPL)
+
+Connection id:          25
+Current database:
+Current user:           root@localhost
+SSL:                    Not in use
+Current pager:          stdout
+Using outfile:          ''
+Using delimiter:        ;
+Server version:         8.0.27 MySQL Community Server - GPL
+Protocol version:       10
+Connection:             Localhost via UNIX socket
+Server characterset:    utf8mb4
+Db     characterset:    utf8mb4
+Client characterset:    latin1
+Conn.  characterset:    latin1
+UNIX socket:            /var/run/mysqld/mysqld.sock
+Binary data as:         Hexadecimal
+Uptime:                 2 hours 5 min 37 sec
+
+Threads: 4  Questions: 229  Slow queries: 0  Opens: 439  Flush tables: 3  Open tables: 358  Queries per second avg: 0.030
+--------------
 
 ````
 ````
