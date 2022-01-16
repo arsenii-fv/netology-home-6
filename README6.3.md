@@ -10,7 +10,7 @@
 Подключитесь к восстановленной БД и получите список таблиц из этой БД.
 Приведите в ответе количество записей с price > 300.
 В следующих заданиях мы будем продолжать работу с данным контей
-````bash
+```` bash
 vagrant@netology1:~/docmysql$ sudo docker exec -it doc_mysql_db bash
 
 root@840ca3f3429c:/mnt/msqlback# mysqldump -uroot -pmadm  msql_db > /mnt/msqlback/msql_db_bak.sql
