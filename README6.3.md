@@ -80,6 +80,19 @@ mysql> select * from orders where price>300;
 Используя таблицу INFORMATION_SCHEMA.USER_ATTRIBUTES получите данные по пользователю test и приведите в ответе к задаче.
 ````
 ````
+mysql> CREATE USER 'test'@'localhost'
+    -> IDENTIFIED WITH mysql_native_password BY 'new_password'
+    -> PASSWORD EXPIRE INTERVAL 180 DAY
+    -> FAILED_LOGIN_ATTEMPTS 3 PASSWORD_LOCK_TIME 100;
+Query OK, 0 rows affected (0.18 sec)
+
+CREATE USER 'jim'@'localhost'
+    ATTRIBUTE '{"fname": "James", "lname": "Scott", "phone": "123-456-7890"}';
+
+mysql> grant select on msql_db.* to 'test'@'localhost';
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+UPDATE mysql.user SET plugin = 'mysql_native_password' WHERE user = 'root' AND plugin = 'unix_socket';
 ````
 
 ### Задача 3
