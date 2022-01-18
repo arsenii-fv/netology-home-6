@@ -79,7 +79,7 @@ mysql> select * from orders where price>300;
 Предоставьте привелегии пользователю test на операции SELECT базы test_db.
 Используя таблицу INFORMATION_SCHEMA.USER_ATTRIBUTES получите данные по пользователю test и приведите в ответе к задаче.
 ````
-````
+````bash
 mysql> CREATE USER 'test'@'localhost'
     -> IDENTIFIED WITH mysql_native_password BY 'test-pass'
     -> PASSWORD EXPIRE INTERVAL 180 DAY
@@ -101,7 +101,7 @@ mysql> flush privileges;
 +------+-----------+---------------------------------------+
 1 row in set (0.00 sec)
 ````
-
+````
 ### Задача 3
 ````
 Установите профилирование SET profiling = 1. Изучите вывод профилирования команд SHOW PROFILES;.
