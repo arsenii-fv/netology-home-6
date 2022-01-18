@@ -237,5 +237,29 @@ mysql> show profiles;
     Размер файла логов операций 100 Мб
 Приведите в ответе измененный файл my.cnf.
 ````
+vagrant@netology1:~/docmysql$ sudo docker stats doc_mysql_db
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O       BLOCK I/O       PIDS
+5775185f5e08   doc_mysql_db   0.08%     346.3MiB / 981.3MiB   35.29%    1.23kB / 0B   97.5MB / 28MB   37
+
+vagrant@netology1:~/docmysql$ sudo docker cp doc_mysql_db:/etc/mysql/my.cnf ./mysql
+
+
+# The MySQL  Server configuration file.
+#
+# For explanations see
+# http://dev.mysql.com/doc/mysql/en/server-system-variables.html
+
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+secure-file-priv= NULL
+innodb_buffer_pool_size=0.7G
+innodb_log_file_size=100MB
+#innodb_log_buffer_size=1MB
+nnodb_file_per_table=1
+
+# Custom config should go here
+!includedir /etc/mysql/conf.d/
 
 ````
