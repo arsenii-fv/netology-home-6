@@ -109,6 +109,7 @@ mysql> flush privileges;
     на MyISAM
     на InnoDB
 ````
+````bash
 mysql> SHOW PROFILES;
 +----------+------------+--------------------------+
 | Query_ID | Duration   | Query                    |
