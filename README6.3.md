@@ -81,18 +81,25 @@ mysql> select * from orders where price>300;
 ````
 ````
 mysql> CREATE USER 'test'@'localhost'
-    -> IDENTIFIED WITH mysql_native_password BY 'new_password'
+    -> IDENTIFIED WITH mysql_native_password BY 'test-pass'
     -> PASSWORD EXPIRE INTERVAL 180 DAY
-    -> FAILED_LOGIN_ATTEMPTS 3 PASSWORD_LOCK_TIME 100;
+    -> FAILED_LOGIN_ATTEMPTS 3 PASSWORD_LOCK_TIME 10
+    -> ATTRIBUTE '{"FName": "Pretty", "SName": "James"}';
 Query OK, 0 rows affected (0.18 sec)
 
-CREATE USER 'jim'@'localhost'
-    ATTRIBUTE '{"fname": "James", "lname": "Scott", "phone": "123-456-7890"}';
-
-mysql> grant select on msql_db.* to 'test'@'localhost';
+mysql> grant select on msql_db.* to 'test'@'localhost'
 Query OK, 0 rows affected, 1 warning (0.00 sec)
-
-UPDATE mysql.user SET plugin = 'mysql_native_password' WHERE user = 'root' AND plugin = 'unix_socket';
+mysql> ALTER USER 'test'@'localhost' WITH MAX_QUERIES_PER_HOUR 100;
+Query OK, 0 rows affected (0.03 sec)
+mysql> flush privileges;
+ 
+ mysql> select * from INFORMATION_SCHEMA.USER_ATTRIBUTES where user='test';
++------+-----------+---------------------------------------+
+| USER | HOST      | ATTRIBUTE                             |
++------+-----------+---------------------------------------+
+| test | localhost | {"FName": "Pretty", "SName": "James"} |
++------+-----------+---------------------------------------+
+1 row in set (0.00 sec)
 ````
 
 ### Задача 3
