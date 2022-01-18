@@ -109,8 +109,122 @@ mysql> flush privileges;
     на MyISAM
     на InnoDB
 ````
+mysql> SHOW PROFILES;
++----------+------------+--------------------------+
+| Query_ID | Duration   | Query                    |
++----------+------------+--------------------------+
+|        1 | 0.00174800 | DROP TABLE IF EXISTS t1  |
+|        2 | 0.22693225 | CREATE TABLE T1 (id INT) |
+|        3 | 0.00009400 | SET profiling = 1        |
++----------+------------+--------------------------+
+3 rows in set, 1 warning (0.00 sec)
+
+mysql> show engines;
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |
+| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |
+| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
+| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |
+| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |
+| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |
+| BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |
+| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |
+| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+9 rows in set (0.04 sec)
+
+
+mysql> show table status\G;
+*************************** 1. row ***************************
+           Name: T1
+         Engine: InnoDB
+        Version: 10
+     Row_format: Dynamic
+           Rows: 0
+ Avg_row_length: 0
+    Data_length: 16384
+Max_data_length: 0
+   Index_length: 0
+      Data_free: 0
+ Auto_increment: NULL
+    Create_time: 2022-01-18 15:13:21
+    Update_time: NULL
+     Check_time: NULL
+      Collation: utf8mb4_0900_ai_ci
+       Checksum: NULL
+ Create_options:
+        Comment:
+*************************** 2. row ***************************
+           Name: orders
+         Engine: InnoDB
+        Version: 10
+     Row_format: Dynamic
+           Rows: 2
+ Avg_row_length: 8192
+    Data_length: 16384
+Max_data_length: 0
+   Index_length: 0
+      Data_free: 0
+ Auto_increment: 6
+    Create_time: 2022-01-15 22:08:16
+    Update_time: NULL
+     Check_time: NULL
+      Collation: utf8mb4_0900_ai_ci
+       Checksum: NULL
+ Create_options:
+        Comment:
+2 rows in set (0.02 sec)
+
+mysql> show profiles;
++----------+------------+--------------------------+
+| Query_ID | Duration   | Query                    |
++----------+------------+--------------------------+
+|        1 | 0.00174800 | DROP TABLE IF EXISTS t1  |
+|        2 | 0.22693225 | CREATE TABLE T1 (id INT) |
+|        3 | 0.00009400 | SET profiling = 1        |
+|        4 | 0.03263600 | show engines             |
+|        5 | 0.00005475 | show msql_db status      |
+|        6 | 0.00005025 | show msql_db status      |
+|        7 | 0.00005200 | show mysql_db status     |
+|        8 | 0.00005350 | show mysql_db status     |
+|        9 | 0.00005400 | show msql_db status      |
+|       10 | 0.02557625 | show table status        |
++----------+------------+--------------------------+
+10 rows in set, 1 warning (0.00 sec)
+
+mysql> ALTER TABLE msql_db.T1 engine=myisam;
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE msql_db.orders engine=myisam;
+Query OK, 5 rows affected (0.12 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> show profiles;
++----------+------------+------------------------------------------+
+| Query_ID | Duration   | Query                                    |
++----------+------------+------------------------------------------+
+|       23 | 0.00004725 | ALTER TABLE msql_db.* engine="MyISAM"    |
+|       24 | 0.00004825 | ALTER TABLE msql_db.* engine=MyISAM      |
+|       25 | 0.00004875 | ALTER TABLE mysql_db.* engine=MyISAM     |
+|       26 | 0.00005150 | ALTER TABLE msql_db.* engine=myisam      |
+|       27 | 0.00011725 | SELECT DATABASE()                        |
+|       28 | 0.00005100 | ALTER TABLE msql_db.* engine=myisam      |
+|       29 | 0.00004450 | ALTER TABLE *.* engine=myisam            |
+|       30 | 0.00042925 | ALTER TABLE msql_db engine=myisam        |
+|       31 | 0.00058525 | ALTER TABLE msql_db.t1 engine=myisam     |
+|       32 | 0.22254150 | ALTER TABLE msql_db.T1 engine=myisam     |
+|       33 | 0.11624750 | ALTER TABLE msql_db.orders engine=myisam |
+|       34 | 0.17271500 | START SLAVE                              |
+|       35 | 0.00025550 | START SLAVE                              |
+|       36 | 0.00023875 | START SLAVE                              |
+|       37 | 0.00028400 | START REPLICA                            |
++----------+------------+------------------------------------------+
+15 rows in set, 1 warning (0.00 sec)
 ````
-````
+
 ### Задача 4
 ````
 Изучите файл my.cnf в директории /etc/mysql.
@@ -122,5 +236,5 @@ mysql> flush privileges;
     Размер файла логов операций 100 Мб
 Приведите в ответе измененный файл my.cnf.
 ````
-````
+
 ````
