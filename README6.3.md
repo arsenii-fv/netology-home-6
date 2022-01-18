@@ -243,11 +243,9 @@ CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O 
 
 vagrant@netology1:~/docmysql$ sudo docker cp doc_mysql_db:/etc/mysql/my.cnf ./mysql
 
-
-# The MySQL  Server configuration file.
-#
-# For explanations see
-# http://dev.mysql.com/doc/mysql/en/server-system-variables.html
+#The MySQL  Server configuration file.
+#For explanations see
+#http://dev.mysql.com/doc/mysql/en/server-system-variables.html
 
 [mysqld]
 pid-file        = /var/run/mysqld/mysqld.pid
@@ -259,7 +257,7 @@ innodb_log_file_size=100MB
 #innodb_log_buffer_size=1MB
 nnodb_file_per_table=1
 
-# Custom config should go here
+#Custom config should go here
 !includedir /etc/mysql/conf.d/
 
 ````
