@@ -1,44 +1,31 @@
 version: '3.3'
 volumes:
-  pgdata: {}
-  pgback: {}
+  msqldata: {}
+  msqlback:
+          
+  mysql:
+          # external: true       
   pgadmin:
 services:
-   
-  postgres:
-    container_name: postgres_test      
-    image: postgres:14
+  dbmysql:
+    build: .
+    container_name: doc_mysql_db
+    image: mysql:8
+    #command: --default-autentification-plugin=mysql_native_password
     restart: always
+    ports: 
+        - "3306:3306"
     environment:
-            POSTGRES_USER: superadmin
-            POSTGRES_PASSWORD: sadm
-            POSTGRES_DB: sup_db
-            PGDATA: /var/lib/postgresql/data/pgdata
+      MYSQL_ROOT_PASSWORD: madm    
+      MYSQL_DATABASE: msql_db
+      MYSQL_USER: madm
     volumes:
-          - "./pgdata:/var/lib/postgresql/data/pgdata"
-            # - "./pgdata:/docker-entrypoint-initdb.d"
-          - "./test_db.sql:/docker-entrypoint-initdb.d/test_db.sql"
-            # - "./data.sql:docker-entrypoint-initdb.d/data.sql"  
-            #- "./pgback"
+            #    - "./mysql:/etc/mysql"
+      - "./msqlback:/mnt/msqlback" 
+      - "./msqldata:/var/lib/mysql"  
+      - "./mydoc.sql:/docker-entrypoint-initdb.d/mydoc.sql"  
+  dbeaver:
+    container_name: doc_eaver        
+    image: dbeaver/cloudbeaver:latest
     ports:
-          - "5432:5432"
-  pgadmin:
-    image: dpage/pgadmin4:5.5
-    environment:
-           PGADMIN_DEFAULT_EMAIL: ars@ars.com
-           PGADMIN_DEFAULT_PASSWORD: pgadmin
-           PGADMIN_LISTEN_PORT: 8080
-    volumes:
-         - "./pgadmin:/root/.pgadmin"
-    ports:
-            - "8080:8080"
-    restart: always
- 
-    #      cpus: '0.5'
-    #      memory: 1G
-    #networks:
-    #  - postgres
-    #networks:
-    #  postgres:
-    #driver: bridge
-
+      - "8081:8978"
