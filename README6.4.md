@@ -11,7 +11,7 @@
     вывода описания содержимого таблиц
     выхода из psql
 ````
-````
+````bash
 sup_db-# \l
                              List of databases
    Name    | Owner | Encoding |  Collate   |   Ctype    | Access privileges
@@ -125,7 +125,7 @@ root@0a90df7b4d88:/#
 Используя таблицу pg_stats, найдите столбец таблицы orders с наибольшим средним значением размера элементов в байтах.
 Приведите в ответе команду, которую вы использовали для вычисления и полученный результат.
 ````
-````
+````bash
 vagrant@netology1:~/docpsql$ sudo docker exec -it postgres_test bash
 root@a7a0f9513b9b:/# psql -U postgres -d sup_db
 psql (13.5 (Debian 13.5-1.pgdg110+1))
@@ -139,6 +139,63 @@ sup_db=# \c test_database;
 You are now connected to database "test_database" as user "sadm".
 test_database=# \q
 root@6042df0cf293:/mnt# psql -U sadm test_database < /mnt/test_dump.sql
+
+test_database=# analyze orders;
+ANALYZE
+test_database=# SELECT * FROM pg_stats where tablename='orders';
+-[ RECORD 1 ]----------+-----------------------------------------------------------------------------------------------------------------------------------------
+---------
+schemaname             | public
+tablename              | orders
+attname                | id
+inherited              | f
+null_frac              | 0
+avg_width              | 4
+n_distinct             | -1
+most_common_vals       |
+most_common_freqs      |
+histogram_bounds       | {1,2,3,4,5,6,7,8}
+correlation            | 1
+most_common_elems      |
+most_common_elem_freqs |
+elem_count_histogram   |
+-[ RECORD 2 ]----------+-----------------------------------------------------------------------------------------------------------------------------------------
+---------
+schemaname             | public
+tablename              | orders
+attname                | title
+inherited              | f
+null_frac              | 0
+avg_width              | 16
+n_distinct             | -1
+most_common_vals       |
+most_common_freqs      |
+histogram_bounds       | {"Adventure psql time",Dbiezdmin,"Log gossips","Me and my bash-pet","My little database","Server gravity falls","WAL never lies","War an
+d peace"}
+correlation            | -0.3809524
+most_common_elems      |
+most_common_elem_freqs |
+elem_count_histogram   |
+-[ RECORD 3 ]----------+-----------------------------------------------------------------------------------------------------------------------------------------
+---------
+schemaname             | public
+tablename              | orders
+attname                | price
+inherited              | f
+null_frac              | 0
+avg_width              | 4
+n_distinct             | -0.875
+most_common_vals       | {300}
+most_common_freqs      | {0.25}
+histogram_bounds       | {100,123,499,500,501,900}
+correlation            | 0.5952381
+most_common_elems      |
+most_common_elem_freqs |
+elem_count_histogram   |
+
+test_database=#
+Столбец title
+Средняя ширина 16 байт
 
 ````
 ### Задача 3
