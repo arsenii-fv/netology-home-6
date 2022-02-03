@@ -204,7 +204,11 @@ test_database=#
 Предложите SQL-транзакцию для проведения данной операции.
 Можно ли было изначально исключить "ручное" разбиение при проектировании таблицы orders?
 ````
-````
+````bash
+test_database=# create table orders_1 (check (price>499)) inherits (orders);
+CREATE TABLE
+test_database=# create table orders_2 (check (price<=499)) inherits (orders);
+CREATE TABLE
 ````
 ### Задача 4
 ````
