@@ -126,6 +126,20 @@ root@0a90df7b4d88:/#
 Приведите в ответе команду, которую вы использовали для вычисления и полученный результат.
 ````
 ````
+vagrant@netology1:~/docpsql$ sudo docker exec -it postgres_test bash
+root@a7a0f9513b9b:/# psql -U postgres -d sup_db
+psql (13.5 (Debian 13.5-1.pgdg110+1))
+Type "help" for help.
+
+sup_db=# CREATE DATABASE test_database;
+CREATE DATABASE
+sup_db=# CREATE DATABASE test_database;
+CREATE DATABASE
+sup_db=# \c test_database;
+You are now connected to database "test_database" as user "sadm".
+test_database=# \q
+root@6042df0cf293:/mnt# psql -U sadm test_database < /mnt/test_dump.sql
+
 ````
 ### Задача 3
 ````
