@@ -260,4 +260,11 @@ test_database=# SELECT * FROM orders_2;
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца title для таблиц test_database?
 ````
 ````
+root@3aa052e92a2a:/opt/pgback# pg_dump -U postgres test_database > /opt/pgback/test_database_bac.sql
+root@3aa052e92a2a:/opt/pgback# ls
+test_database_bac.sql  test_db.sql
+root@3aa052e92a2a:/opt/pgback#
+
+test_database=# alter table orders add constraint orders_title unique (title);
+ALTER TABLE
 ````
