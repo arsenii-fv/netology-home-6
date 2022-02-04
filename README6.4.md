@@ -265,6 +265,9 @@ root@3aa052e92a2a:/opt/pgback# ls
 test_database_bac.sql  test_db.sql
 root@3aa052e92a2a:/opt/pgback#
 
+root@3aa052e92a2a:/opt/pgback# psql -U postgres -d test_database
+psql (13.5 (Debian 13.5-1.pgdg110+1))
+Type "help" for help.
 test_database=# alter table orders add constraint orders_title unique (title);
 ALTER TABLE
 ````
