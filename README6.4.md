@@ -209,6 +209,47 @@ test_database=# create table orders_1 (check (price>499)) inherits (orders);
 CREATE TABLE
 test_database=# create table orders_2 (check (price<=499)) inherits (orders);
 CREATE TABLE
+test_database=# create rule new_rule1 as on insert to orders where (price>499) do instead insert into orders_1 values (new.*);
+CREATE RULE
+test_database=# create rule new_rule2 as on insert to orders where (price<=499) do instead insert into orders_2 values (new.*);
+CREATE RULE
+test_database=# SELECT * FROM orders;
+ id |        title         | price
+----+----------------------+-------
+  1 | War and peace        |   100
+  2 | My little database   |   500
+  3 | Adventure psql time  |   300
+  4 | Server gravity falls |   300
+  5 | Log gossips          |   123
+  6 | WAL never lies       |   900
+  7 | Me and my bash-pet   |   499
+  8 | Dbiezdmin            |   501
+(8 rows)
+test_database=# insert into orders (id, title, price) values (9, 'Idiot', 350);
+INSERT 0 0
+test_database=# SELECT * FROM orders;
+ id |        title         | price
+----+----------------------+-------
+  1 | War and peace        |   100
+  2 | My little database   |   500
+  3 | Adventure psql time  |   300
+  4 | Server gravity falls |   300
+  5 | Log gossips          |   123
+  6 | WAL never lies       |   900
+  7 | Me and my bash-pet   |   499
+  8 | Dbiezdmin            |   501
+  9 | Idiot                |   350
+(9 rows)
+test_database=# SELECT * FROM orders_1;
+ id | title | price
+----+-------+-------
+(0 rows)
+
+test_database=# SELECT * FROM orders_2;
+ id | title | price
+----+-------+-------
+  9 | Idiot |   350
+(1 row)
 ````
 ### Задача 4
 ````
