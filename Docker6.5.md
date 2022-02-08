@@ -10,4 +10,4 @@
   990  sudo docker stop elastic-serv
   991  sudo docker stop elastic-serv1
   
-  1002  sudo docker system prune -a
+  1002  sudo docker system prune -a # Удаление запущенных и остановленных контейнеров
