@@ -15,3 +15,6 @@
   vagrant@netology1:~/docelastic$ sudo docker run -it --name elastic-serv --ulimit nofile=65000:65000 -d 48217ec9cd25 bash
 64a98971875aa0de70a588d5b3fe39335b914a084c202454c0776b74d3a2c0dc
 vagrant@netology1:~/docelastic$ sudo docker exec -it elastic-serv bash
+
+
+sudo docker run -it --name elastic-serv4 --ulimit nofile=65535:65535 -d 33e8561ccd34 bash
