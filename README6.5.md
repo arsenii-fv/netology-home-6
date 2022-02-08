@@ -23,10 +23,8 @@
     elasticsearch в логах обычно описывает проблему и пути ее решения
 ````
 ````bash
-FROM centos:centos7
-#MAINTAINER The CentOS Project <cloud-ops@centos.org>
-#ENV container docker
 
+FROM centos:centos7
 RUN yum -y update &&\
     yum -y upgrade &&\
     yum clean all
@@ -42,36 +40,21 @@ RUN shasum -a 512 -c elasticsearch-7.17.0-linux-x86_64.tar.gz.sha512
 RUN tar -xzf elasticsearch-7.17.0-linux-x86_64.tar.gz
 RUN rm elasticsearch-7.17.0-linux-x86_64.tar.gz &&\
     cd elasticsearch-7.17.0
-
 RUN mkdir -p /var/lib/elasticsearch/data
 RUN mkdir -p /var/lib/elasticsearch/logs
 ADD elasticsearch.yml /elasticsearch-7.17.0/config/elasticsearch.yml
-
 RUN groupadd elasticsearch
 RUN useradd elastic -g elasticsearch -p elastic
 RUN chown -R elastic:elasticsearch /elasticsearch-7.17.0
 RUN chown -R elastic:elasticsearch /var/lib/elasticsearch/
-
-#RUN su elastic
-
-USER elastic
-
-RUN  ./elasticsearch-7.17.0/bin/elasticsearch -d -p pid
-
-USER root
-#VOLUME ["/data"]
-
-#WORKDIR /data
-
+#USER elastic
+#RUN  ./elasticsearch-7.17.0/bin/elasticsearch -d -p pid
+#USER root
 # - 9200: HTTP
 EXPOSE 9200
-
 CMD ["/bin/bash"]
-#CMD [ "/elasticsearch-7.17.0/bin/elasticsearch"]
-
 # - 9300: transport
 EXPOSE 9300
-
 
 [elastic@b55bac9a6297 bin]$ curl "http://localhost:9200"
 {
