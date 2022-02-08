@@ -22,8 +22,76 @@
     при некоторых проблемах вам поможет docker директива ulimit
     elasticsearch в логах обычно описывает проблему и пути ее решения
 ````
-````
-erfewrferf
+````bash
+FROM centos:centos7
+#MAINTAINER The CentOS Project <cloud-ops@centos.org>
+#ENV container docker
+
+RUN yum -y update &&\
+    yum -y upgrade &&\
+    yum clean all
+RUN yum -y install wget
+RUN yum install -y perl-Digest-SHA
+RUN yum install -y mc &&\
+    yum install -y java-1.8.0-openjdk.x86_64
+RUN yum clean all
+
+RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.0-linux-x86_64.tar.gz
+RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.0-linux-x86_64.tar.gz.sha512
+RUN shasum -a 512 -c elasticsearch-7.17.0-linux-x86_64.tar.gz.sha512
+RUN tar -xzf elasticsearch-7.17.0-linux-x86_64.tar.gz
+RUN rm elasticsearch-7.17.0-linux-x86_64.tar.gz &&\
+    cd elasticsearch-7.17.0
+
+RUN mkdir -p /var/lib/elasticsearch/data
+RUN mkdir -p /var/lib/elasticsearch/logs
+ADD elasticsearch.yml /elasticsearch-7.17.0/config/elasticsearch.yml
+
+RUN groupadd elasticsearch
+RUN useradd elastic -g elasticsearch -p elastic
+RUN chown -R elastic:elasticsearch /elasticsearch-7.17.0
+RUN chown -R elastic:elasticsearch /var/lib/elasticsearch/
+
+#RUN su elastic
+
+USER elastic
+
+RUN  ./elasticsearch-7.17.0/bin/elasticsearch -d -p pid
+
+USER root
+#VOLUME ["/data"]
+
+#WORKDIR /data
+
+# - 9200: HTTP
+EXPOSE 9200
+
+CMD ["/bin/bash"]
+#CMD [ "/elasticsearch-7.17.0/bin/elasticsearch"]
+
+# - 9300: transport
+EXPOSE 9300
+
+
+[elastic@b55bac9a6297 bin]$ curl "http://localhost:9200"
+{
+  "name" : "netology_test",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "_na_",
+  "version" : {
+    "number" : "7.17.0",
+    "build_flavor" : "default",
+    "build_type" : "tar",
+    "build_hash" : "bee86328705acaa9a6daede7140defd4d9ec56bd",
+    "build_date" : "2022-01-28T08:36:04.875279988Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.11.1",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+
 ````
 ### Задача 2
 ````
