@@ -1,3 +1,4 @@
+  ````bash
   854  sudo docker build -t linux/elastic .
   855  sudo docker images
   856  sudo docker run -it --name elastic-serv -d 9d3f81fb8406
