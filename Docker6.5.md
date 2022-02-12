@@ -18,3 +18,5 @@ vagrant@netology1:~/docelastic$ sudo docker exec -it elastic-serv bash
 
 
 sudo docker run -it --name elastic-serv4 --ulimit nofile=65535:65535 -d 33e8561ccd34 bash
+
+[elastic@b55bac9a6297 bin]$ ./elasticsearch -d -p pid # execute elasticksearch
