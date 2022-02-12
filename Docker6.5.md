@@ -24,3 +24,7 @@ sudo docker run -it --name elastic-serv4 --ulimit nofile=65535:65535 -d 33e8561c
 sudo sysctl -w vm.max_map_count=262144 5
 
 vagrant@netology1:~/docelastic$ sudo sysctl -w vm.max_map_count=262145
+
+curl -XPUT 'localhost:9200/_template/template_1' \
+  -H 'Content-Type: application/json' \
+  -d '**your query**'
