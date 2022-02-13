@@ -95,7 +95,16 @@ ind-3 	2 	4
 При проектировании кластера elasticsearch нужно корректно рассчитывать количество реплик и шард, иначе возможна потеря данных индексов, вплоть до полной, при деградации системы.
 ```` 
 ````
-
+[elastic@d26cf473ecd9 bin]$ curl -XPUT 'http://localhost:9200/ind-1' \
+> -H 'Content-Type: application/json' \
+> -d '{
+>   "settings": {
+>     "index": {
+>       "number_of_shards": 1,
+>       "number_of_replicas": 0
+>     }
+>   }
+> }'
 ````
 ### Задача 3
 ````
