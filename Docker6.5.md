@@ -28,3 +28,15 @@ vagrant@netology1:~/docelastic$ sudo sysctl -w vm.max_map_count=262145
 curl -XPUT 'localhost:9200/_template/template_1' \
   -H 'Content-Type: application/json' \
   -d '**your query**'
+
+vagrant@netology1:~/docelastic$ sudo docker start d26cf473ecd9
+[elastic@d26cf473ecd9 bin]$ curl -XPUT 'http://localhost:9200/ind-1' \
+> -H 'Content-Type: application/json' \
+> -d '{
+>   "settings": {
+>     "index": {
+>       "number_of_shards": 1,
+>       "number_of_replicas": 0
+>     }
+>   }
+> }'
