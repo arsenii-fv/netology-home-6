@@ -115,6 +115,8 @@ green  open ind-1            4VOq_-DESmeBwjpzkq17Kg 1 0  0  0   226b   226b
 yellow open ind-3            HsfjYM6jTAqxAA2gpA89UQ 1 1  0  0   226b   226b
 yellow open ind-2            EhC3AD4-RtSBR6yXzgD7KA 1 1  0  0   226b   226b
 * Connection #0 to host localhost left intact
+
+В ind-2, ind-3 количество реплик 1 и 2, по факту их нет.
 ````
 ### Задача 3
 ````
