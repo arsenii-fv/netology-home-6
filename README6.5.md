@@ -117,6 +117,24 @@ yellow open ind-2            EhC3AD4-RtSBR6yXzgD7KA 1 1  0  0   226b   226b
 * Connection #0 to host localhost left intact
 
 В ind-2, ind-3 количество реплик 1 и 2, по факту их нет.
+
+[elastic@d26cf473ecd9 bin]$ curl -XGET 'http://localhost:9200/_cluster/heals?'
+{"cluster_name":"elasticsearch",
+    "status":"yellow",
+    "timed_out":false,
+    "number_of_nodes":1,
+    "number_of_data_nodes":1,
+    "active_primary_shards":6,
+    "active_shards":6,
+    "relocating_shards":0,
+    "initializing_shards":0,
+    "unassigned_shards":2,
+    "delayed_unassigned_shards":0,
+    "number_of_pending_tasks":0,
+    "number_of_in_flight_fetch":0,
+    "task_max_waiting_in_queue_millis":0,
+    "active_shards_percent_as_number"
+
 ````
 ### Задача 3
 ````
