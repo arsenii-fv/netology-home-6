@@ -40,3 +40,14 @@ vagrant@netology1:~/docelastic$ sudo docker start d26cf473ecd9
 >     }
 >   }
 > }'
+
+[elastic@038b23e6a2a0 bin]$ curl -XPUT 'http://localhost:9200/test' \
+> -H 'Content-Type: application/json' \
+> -d '{
+>   "settings": {
+>     "index": {
+>       "number_of_shards": 1,
+>       "number_of_replicas": 0
+>     }
+>    }
+> }'
