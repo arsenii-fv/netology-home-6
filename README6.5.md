@@ -138,7 +138,7 @@ yellow open ind-2            EhC3AD4-RtSBR6yXzgD7KA 1 1  0  0   226b   226b
 
 [elastic@d26cf473ecd9 bin]$ curl -X DELETE 'http://localhost:9200/_all'
 {"acknowledged":true}[elastic@d26cf473ecd9 bin]$
-[elastic@d26cf473ecd9 bin]$ curlv -GET 'localhost:9200/_cat/indices?'
+[elastic@d26cf473ecd9 bin]$ curl -v -GET 'localhost:9200/_cat/indices?'
 * About to connect() to localhost port 9200 (#0)
 *   Trying 127.0.0.1...
 * Connected to localhost (127.0.0.1) port 9200 (#0)
@@ -195,5 +195,32 @@ green open .geoip_databases bvsntme3TPuwtxoGUe3hOw 1 0 41 36 41.3mb 41.3mb
 >     }
 >    }
 > }'
+
+
+[elastic@038b23e6a2a0 bin]$ curl -XPUT "http://localhost:9200/_snapshot/netology_backup/netology_snapshot?wait_for_completion=true"
+[elastic@038b23e6a2a0 elasticsearch]$ cd snapshots/
+[elastic@038b23e6a2a0 snapshots]$ ls
+index-0  index.latest  indices  meta-pFFYYrO3QNe0OEVGofBL_g.dat  snap-pFFYYrO3QNe0OEVGofBL_g.dat
+[elastic@038b23e6a2a0 snapshots]$
+
+[elastic@038b23e6a2a0 snapshots]$  curl -v -GET 'localhost:9200/_cat/indices?'
+* About to connect() to localhost port 9200 (#0)
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 9200 (#0)
+> GET /_cat/indices? HTTP/1.1
+> User-Agent: curl/7.29.0
+> Host: localhost:9200
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< X-elastic-product: Elasticsearch
+< Warning: 299 Elasticsearch-7.17.0-bee86328705acaa9a6daede7140defd4d9ec56bd "Elasticsearch built-in security features are not enabled. Without authentication, your cluster could be accessible to anyone. See https://www.elastic.co/guide/en/elasticsearch/reference/7.17/security-minimal-setup.html to enable security."
+< content-type: text/plain; charset=UTF-8
+< content-length: 150
+<
+yellow open test-2           -pRuYrVQQI-8Lpi8sIk2Ag 2 1  0 0   452b   452b
+green  open .geoip_databases ra8TzVlKR3yyYTi1O9a8KA 1 0 41 0 38.6mb 38.6mb
+* Connection #0 to host localhost left intact
+[elastic@038b23e6a2a0 snapshots]$
 
 ````
