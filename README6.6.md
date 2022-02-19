@@ -20,7 +20,7 @@
     2 db.inventory.find(
         {quantity: {$gte: 100, $lte: 200 }}
         ).explain("executionStats")
-    3 db.killOp(<opid of the query to kill>)
+    3 db.killOp(<opid of the query to kill>) , либо дождаться окончания выполнения запроса 
     
 ````
 
