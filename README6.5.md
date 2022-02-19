@@ -174,5 +174,15 @@ green open .geoip_databases bvsntme3TPuwtxoGUe3hOw 1 0 41 36 41.3mb 41.3mb
 Подсказки:
    возможно вам понадобится доработать elasticsearch.yml в части директивы path.repo и перезапустить elasticsearch
 ````
-````
+````bash
+[elastic@038b23e6a2a0 bin]$ curl -XPUT "http://localhost:9200/_snapshot/netology_backup" \
+> -H 'Content-Type: application/json' \
+> -d '{
+>   "type": "fs",
+>   "settings": {
+>     "location": "/var/lib/elasticsearch/snapshots"
+>   }
+> }'
+{"acknowledged":true}[elastic@038b23e6a2a0 bin]$
+
 ````
