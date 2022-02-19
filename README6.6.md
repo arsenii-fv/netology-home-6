@@ -16,8 +16,10 @@
     Проверить состояние службы mongodb.
     Обзор логов БД.
     
-    db.currentOp({"secs_running":{$gte:180}})
-    
+    1 db.currentOp({"secs_running":{$gte:180}})
+    2 db.inventory.find(
+        {quantity: {$gte: 100, $lte: 200 }}
+        ).explain("executionStats")
     
     
 ````
