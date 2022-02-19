@@ -22,6 +22,8 @@
     при некоторых проблемах вам поможет docker директива ulimit
     elasticsearch в логах обычно описывает проблему и пути ее решения
 ````
+
+[ссылка]docker pull arseniidoc/netology-home5:elastic
 ````bash
 
 FROM centos:centos7
