@@ -23,7 +23,7 @@
     elasticsearch в логах обычно описывает проблему и пути ее решения
 ````
 
-[ссылка]docker pull arseniidoc/netology-home5:elastic
+[ссылка] https://hub.docker.com/r/arseniidoc/netology-home5/tags
 ````bash
 
 FROM centos:centos7
