@@ -185,4 +185,15 @@ green open .geoip_databases bvsntme3TPuwtxoGUe3hOw 1 0 41 36 41.3mb 41.3mb
 > }'
 {"acknowledged":true}[elastic@038b23e6a2a0 bin]$
 
+[elastic@038b23e6a2a0 bin]$ curl -XPUT 'http://localhost:9200/test' \
+> -H 'Content-Type: application/json' \
+> -d '{
+>   "settings": {
+>     "index": {
+>       "number_of_shards": 1,
+>       "number_of_replicas": 0
+>     }
+>    }
+> }'
+
 ````
