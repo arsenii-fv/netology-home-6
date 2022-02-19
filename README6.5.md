@@ -223,4 +223,31 @@ green  open .geoip_databases ra8TzVlKR3yyYTi1O9a8KA 1 0 41 0 38.6mb 38.6mb
 * Connection #0 to host localhost left intact
 [elastic@038b23e6a2a0 snapshots]$
 
+[elastic@038b23e6a2a0 snapshots]$ curl -XPOST "http://localhost:9200/_snapshot/netology_backup/netology_snapshot/_restore" \
+> -H 'Content-Type: application/json' \
+> -d '{
+>   "indices": "test",
+>   "rename_replacement": "test_restore"
+> }'
+[elastic@038b23e6a2a0 snapshots]$  curl -v -GET 'localhost:9200/_cat/indices?'
+* About to connect() to localhost port 9200 (#0)
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 9200 (#0)
+> GET /_cat/indices? HTTP/1.1
+> User-Agent: curl/7.29.0
+> Host: localhost:9200
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< X-elastic-product: Elasticsearch
+< Warning: 299 Elasticsearch-7.17.0-bee86328705acaa9a6daede7140defd4d9ec56bd "Elasticsearch built-in security features are not enabled. Without authentication, your cluster could be accessible to anyone. See https://www.elastic.co/guide/en/elasticsearch/reference/7.17/security-minimal-setup.html to enable security."
+< content-type: text/plain; charset=UTF-8
+< content-length: 225
+<
+yellow open test-2           -pRuYrVQQI-8Lpi8sIk2Ag 2 1  0 0   452b   452b
+green  open .geoip_databases ra8TzVlKR3yyYTi1O9a8KA 1 0 41 0 38.6mb 38.6mb
+green  open test             w_IhXjqYSb6LTX5UIaO7JQ 1 0  0 0   226b   226b
+* Connection #0 to host localhost left intact
+[elastic@038b23e6a2a0 snapshots]$
+
 ````
